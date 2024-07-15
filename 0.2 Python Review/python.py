@@ -1,11 +1,11 @@
   import random
 
-# Function to generate random temperatures for a week
 def generate_temperatures():
     temperatures = []
     for _ in range(7):
         temperatures.append(random.randint(26, 40))
-    return temperatures
+    print(temperatures)
+    
 
 
 def get_day(i):
@@ -20,10 +20,11 @@ def count_even_temperatures(temperatures):
         if temperatures[i] % 2 == 0:
             even_count += 1
             even_days.append(get_day(i))
+            print("even" + even_count + "even days" )
     return even_count, even_days
 
 
-def find_extreme_temperatures(temperatures):
+def find_temperatures(temperatures):
     highest= max(temperatures)
     lowest= min(temperatures)
     highest_day = get_day(temperatures.index(highest))
