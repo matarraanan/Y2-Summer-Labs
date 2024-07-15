@@ -1,6 +1,6 @@
   import random
 
-# Function to generate random temperatures for a week
+
 def generate_temperatures():
     temperatures = []
     for _ in range(7):
