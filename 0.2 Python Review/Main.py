@@ -52,12 +52,13 @@ def rndh(hashtags):
 hashtags = ["funny", "sad" , "great" , "amazing","boo", "nice", "wow","eww"]
 vid = create_youtube_video("bro", "funny",hashtags)
 vid2 = create_youtube_video("bro", "funny",hashtags)
-for i in range(496):
+for i in range(495):
     like_vid(vid)
 trendy = bool( trendy ( vid))
 dislike_vid(vid)
 add_comment(vid, "matar", "shit")
 simailarity = similarity_to_video(vid,vid2)
+rndh
 if(trendy):
 	print(trendy)
 print(simailarity)
