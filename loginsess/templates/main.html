@@ -53,7 +53,7 @@ div.wrapper {
   text-align: center; 
 }
 
-       input[type=number], input[type=submit] {
+       input[type=number], input[type=submit] ,input[type=text]{
   width: 100%; 
   padding: 15px 25px; 
   border: none; 
@@ -89,14 +89,15 @@ input[type=submit]:hover {
 		<h1 class="textcool"> choose ur fate</h1>
 		<br> <br><br>	
 		<!-- <p>tell me your fate </p> -->
-		<form action="/home" method="POST">
-			<div class="wrapper">
-				<br>
-			<input style="margin: 0; justify-content: center;" name="BD" type="number" placeholder="enter birth month">
-			<br><br>
-			<input type="submit" value="submit" >
-		</div>
-		</form>
+		<body>
+    <form method="POST">
+     
+        <input placeholder="enter name" style="width: 50%;" type="text" id="username" name="username">
+        
+        <input placeholder="enter birthmonth" style="width: 50%;"type="text" id="BD" name="BD">
+        <button type="submit">Submit</button>
+    </form>
+</body>
 		<br><br><br><br>
 
 

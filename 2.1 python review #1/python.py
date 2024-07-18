@@ -1,5 +1,9 @@
   import random
 
+<<<<<<< HEAD:2.1 python review #1/python.py
+=======
+
+>>>>>>> 69259a4b8a9595f9ce93ab8c36c8484b5aa9726b:0.2 Python Review/python.py
 def generate_temperatures():
     temperatures = []
     for _ in range(7):

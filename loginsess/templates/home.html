@@ -36,9 +36,13 @@
 
 			}
 			p{
+				font-size: 70px;
+				text-decoration: none;
 				text-align: center;
 				margin: 0 ;
-
+a{
+	text-decoration: none;
+}
 			}
 			img{
 				display: block;
@@ -85,25 +89,14 @@ input[type=submit]:hover {
 
 
 	<body>
-		<br><br><br><br><br><br><br><br><br><br>
-		<h1 class="textcool"> choose ur fate</h1>
-		<br> <br><br>	
-		<!-- <p>tell me your fate </p> -->
-		<form action="/home" method="POST">
-			<div class="wrapper">
-				<br>
-			<input style="margin: 0; justify-content: center;" name="BD" type="number" placeholder="enter birth month">
-			<br><br>
-			<input type="submit" value="submit" >
-		</div>
-		</form>
-		<br><br><br><br>
+		<body>
+    <h1>Welcome, {{ name }}</h1>
+ <p>   <a style="text-decoration: none" href="{{ url_for('fortune') }}">See Your Fortune</a></p>
+</body>
 
 
 
-
-	</body>
-
+	
 
 
 
