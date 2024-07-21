@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quotes</title>
+</head>
+<body>
+    <h1>Submitted Quotes</h1>
+    {% for quote in quotes %}
+        <p style="color: black">{{ quote }}</p>
+    {% endfor %}
+    <a href="/home">Submit another quote</a>
+</body>
+</html>
