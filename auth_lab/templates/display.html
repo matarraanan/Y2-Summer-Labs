@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Quotes</title>
+    <title>Display Quotes</title>
 </head>
 <body>
-    <h1>Submitted Quotes</h1>
-    {% for quote in quotes %}
-        <p style="color: black">{{ quote }}</p>
-    {% endfor %}
-    <a href="/home">Submit another quote</a>
+    <h1>Quotes</h1>
+    <ul>
+        {% for key, quote in quotes.items() %}
+            <li>{{ quote.text }} - {{ quote.said_by }}</li>
+        {% endfor %}
+    </ul>
 </body>
 </html>
