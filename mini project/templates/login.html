@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In / Register</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,700&display=swap">
+    <style>
+        html, body {
+            padding: 0px;
+            margin: 0px;
+            background: #F8F2ED;
+            font-family: 'Raleway', sans-serif;
+            color: #FFF;
+            height: 100%;
+        }
+
+        .container {
+            min-height: 600px;
+            max-width: 300px;
+            margin: 40px auto;
+            background: #FFF;
+            border-radius: 2px;
+            box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            animation: hi 0.5s;
+            -webkit-transform: translateZ(0px);
+        }
+
+        .container * {
+            box-sizing: border-box;
+        }
+
+        .page {
+            width: 100%;
+            padding: 20px 15px;
+            padding-top: 0px;
+            background: linear-gradient(to left, #955DFF, #6FAAFF);
+        }
+
+        .signup {
+            background: linear-gradient(to left, #6FAAFF, #955DFF);
+        }
+
+        .input {
+            margin-top: 20px;
+        }
+
+        .title {
+            margin-bottom: 10px;
+            font-size: 14px;
+            position: relative;
+            line-height: 14px;
+        }
+
+        .title i {
+            vertical-align: text-bottom;
+            font-size: 19px;
+        }
+
+        input.text {
+            background: #F6F7F9;
+            border: none;
+            border-radius: 4px;
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            padding: 0px 10px;
+            color: rgba(0, 0, 0, 0.5);
+            outline: none;
+        }
+
+        input[type=submit] {
+            background: rgba(0, 0, 0, 0.5);
+            color: #F6F7F9;
+            height: 40px;
+            line-height: 40px;
+            width: 100%;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        @keyframes hi {
+            from {
+                transform: translateY(50%) scale(0, 0);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <form action="/login" method="POST">
+    <div class="container">
+        <div class="page">
+            <div class="input">
+                <div class="title"><i class="material-icons">markunread_mailbox</i> EMAIL</div>
+                <input class="text" type="email" name="email">
+            </div>
+            <div class="input">
+                <div class="title"><i class="material-icons">lock</i> PASSWORD</div>
+                <input class="text" type="password" name="password">
+            </div>
+            <div class="input">
+                <input type="submit" value="ENTER">
+            </div>
+        </div>
+    </div>
+</form>
+</body>
+</html>

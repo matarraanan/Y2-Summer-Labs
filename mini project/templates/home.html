@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link href="https://fonts.googleapis.com/css2?family=Aboreto&display=swap" rel="stylesheet">
+    <style>
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 #222a;
+            }
+            40% {
+                box-shadow: 0 0 0 0.1rem #2222;
+                opacity: 0.7;
+            }
+            80% {
+                box-shadow: 0 0 0 0.15rem #2222;
+                opacity: 0;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: calc(100vmax / 1600 * 100);
+        }
+
+        @media (max-width: 992px) {
+            html {
+                font-size: 60px;
+            }
+        }
+
+        body {
+            min-height: 100vh;
+            padding: 0.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: #222;
+            background-color: #eee;
+            font-size: 0.24rem;
+            font-family: 'Aboreto', sans-serif;
+        }
+
+        .card {
+            width: 5rem;
+            height: 1.8rem;
+            padding: 0.3rem 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.2rem;
+            line-height: 1.5;
+            border: 1px solid;
+            border-radius: 0.3rem;
+            box-shadow: 3px 3px 0 3px #222;
+            cursor: crosshair;
+            overflow: hidden;
+        }
+
+        input[type='checkbox'] {
+            display: none;
+        }
+
+        input[type='checkbox']:checked ~ .dark-mode-mask {
+            transform: scale(50);
+        }
+
+        input[type='checkbox']:checked ~ .toggle-btn {
+            background-color: #fff;
+            color: black;
+        }
+
+        .dark-mode-mask, .toggle-btn {
+            position: fixed;
+            bottom: 0.3rem;
+            right: 0.3rem;
+            width: 1.79rem;
+            height: 1.5rem;
+            border-radius: 50%;
+        }
+
+        .toggle-btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8em;
+            color: orange;
+            background-color: #222;
+            cursor: pointer;
+            z-index: 1;
+            transition: all 0.3s;
+            will-change: background-color;
+        }
+
+        .toggle-btn:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            background-color: inherit;
+            border-radius: inherit;
+            animation: pulse 1.2s infinite linear;
+            pointer-events: none;
+        }
+
+        .dark-mode-mask {
+            pointer-events: none;
+            background-color: #fff;
+            mix-blend-mode: difference;
+            transition: all 0.5s ease;
+            will-change: transform;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-evenly;
+            width: 200px;
+            background-color: transparent;
+            padding-top: 20px;
+            gap: 100px;
+
+        }
+
+        .navbar a {
+            display: flex;
+            justify-content: space-evenly;
+            gap: 5px;
+            color: goldenrod;
+            padding: 10px;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .navbar a:hover {
+            background-color: #575757;
+        }
+
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            background-color: #f1f1f1;
+            padding: 10px 20px;
+        }
+
+        .header span {
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <input type="checkbox" id="toggle-btn">
+    <label class="toggle-btn" for="toggle-btn" id="dmode">dark mode</label>
+    <div class="dark-mode-mask"></div>
+    <div class="navbar">
+        <a href="/">Home page</a>
+        {% if is_signed %}
+            <a href="/RPC">the game</a>
+            <form action="/logout" method="post" style="display: inline;">
+                <button type="submit" style="border: none; background: none; color: goldenrod; cursor: pointer;">Logout</button>
+            </form>
+        {% else %}
+            <a href="/login">Login page</a>
+            <a href="/signup">Signup page</a>
+        {% endif %}
+    </div>
+    <div class="content">
+        <div class="header">
+            <span id="greeting">Hello, {{ name }}</span>
+        </div>
+        <div class="card">
+            Welcome, are you ready to play?
+        </div>
+    </div>
+    <script>
+        const toggleBtn = document.getElementById('dmode');
+        const checkbox = document.getElementById('toggle-btn');
+
+        checkbox.addEventListener('change', () => {
+            toggleBtn.textContent = checkbox.checked ? 'light mode' : 'dark mode';
+        });
+
+    </script>
+</body>
+</html>

@@ -74,8 +74,8 @@ def thanks():
 @app.route('/display')
 def display():
     quotes = db.child("Quotes").get().val()
-    all_users = db.child("users").get().val()
-    return render_template("display.html", quotes=quotes, all_users = all_users)
+    # all_users = db.child("users").get().val()
+    return render_template("display.html", quotes=quotes)
 
 @app.route('/signout', methods=['POST'])
 def signout():

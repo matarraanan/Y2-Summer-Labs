@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simple Game</title>
+<style>
+
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  color: #fff;
+  background-color: lightsalmon;
+  overflow: hidden;
+  font-family: "Archivo Black", sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+
+.game {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  width: 29.03rem;
+}
+
+
+.game__player {
+  position: absolute;
+  width: var(--cell);
+  height: var(--cell);
+  background-color: crimson;
+  top: calc(var(--positionTop) * var(--cell));
+  left: calc(var(--positionLeft) * var(--cell));
+  transition-property: top, left;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+}
+
+
+@media (max-width: 767px) {
+  .game__player {
+    transition-duration: 0.1s;
+  }
+}
+
+
+.game__cell {
+  width: var(--cell);
+  height: var(--cell);
+  background-color: #fff;
+}
+
+.game__cell--rock {
+  background: darkred;
+}
+
+.game__cell--end {
+  background: #80c0a1;
+}
+.navbar {
+            display: flex;
+            justify-content: space-evenly;
+            width: 200px;
+            background-color: transparent;
+            padding-top: 20px;
+            gap: 100px;
+
+        }
+
+        .navbar a {
+            display: flex;
+            justify-content: space-evenly;
+            gap: 5px;
+            color: crimson;
+            padding: 10px;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .navbar a:hover {
+            background-color: #575757;
+            text-shadow: crimson 1px ;
+        }
+</style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="/">Home page</a>
+    </div>
+<div id="game" class="game"></div>
+<script>
+const game = document.getElementById("game"); 
+
+const player = document.createElement("div"); 
+player.classList.add("game__player"); 
+
+let level = 0; 
+let width = 29; 
+const puzzles = [ 
+  ["ox---", "---xe"],
+  ["ox---", "---xe", "--xxx"],
+  ["o--xx", "x--xe", "--x--", "-----", "-----"],
+  
+ 
+];
+
+let initialPosition = [];
+let position = []; 
+let end = [];
+let rocks = []; 
+
+const buildLevel = () => {
+  // Adapt cell size to level
+  document.body.style = `--cell: ${width / puzzles[level][0].length}rem`;
+
+  // Reset rocks
+  rocks = [];
+  puzzles[level].forEach((row, rowIndex) => {
+    const cells = row.split("");
+    cells.forEach((cell, cellIndex) => {
+      const newDiv = document.createElement("div");
+      newDiv.classList.add("game__cell");
+      if (cell === "o") {
+        initialPosition = [cellIndex, rowIndex];
+        position = [cellIndex, rowIndex];
+      } else if (cell === "x") {
+        rocks.push([cellIndex, rowIndex, "rock"]);
+        newDiv.classList.add("game__cell--rock");
+      } else if (cell === "e") {
+        end = [cellIndex, rowIndex];
+        newDiv.classList.add("game__cell--end");
+      }
+      game.appendChild(newDiv);
+    });
+  });
+  game.appendChild(player);
+};
+
+
+const positionPlayer = () => {
+  player.style = `--positionLeft: ${position[0]}; --positionTop: ${position[1]};`;
+};
+
+
+const winLevel = () => {
+  setTimeout(() => {
+    game.innerHTML = ""; 
+    level++; 
+    buildLevel(); 
+    positionPlayer(); 
+  }, 500); 
+};
+
+// check if the player has reached the end position
+const nextLevel = () => {
+  if (position[0] === end[0] && position[1] === end[1]) { // If player reaches the end position
+    winLevel(); // Proceed to the next level
+  }
+};
+
+// Function to move  player and handle collisions
+const movePlayer = (axis, anahi, movingForward) => {
+  // Filter relevant rocks in the direction of movement
+  const relevantRocks = rocks
+    .filter((rock) => rock[axis] === position[axis])
+    .filter((rock) => movingForward ? rock[anahi] > position[anahi] : rock[anahi] < position[anahi]);
+  
+  if (relevantRocks.length) { // If there are rocks in the path
+    const minmax = movingForward ? Math.min(...relevantRocks.map((rock) => rock[anahi])) : Math.max(...relevantRocks.map((rock) => rock[anahi]));
+    const relevantRock = relevantRocks.find((rock) => rock[anahi] === minmax);
+    
+    if (relevantRock[2] === "rock") { // If the obstacle is a rock
+      position[anahi] = movingForward ? minmax - 1 : minmax + 1; // Move to the position before the rock
+    } else {
+      position[anahi] = minmax; // Move to the position of the obstacle
+    }
+  } else {
+    // If no obstacles, move to the edge of the game board
+    const maxCells = axis === 1 ? puzzles[level][position[1]].length : puzzles[level].length;
+    position[anahi] = movingForward ? maxCells - 1 : 0;
+  }
+  
+  positionPlayer(); // Update the player's position on the game board
+  nextLevel(); // Check if the player has reached the end position
+};
+
+
+const topFunction = () => movePlayer(0, 1, false);
+const leftFunction = () => movePlayer(1, 0, false);
+const rightFunction = () => movePlayer(1, 0, true);
+const bottomFunction = () => movePlayer(0, 1, true);
+
+
+buildLevel();
+positionPlayer();
+
+
+window.addEventListener("keydown", (event) => {
+  if (event.key === "ArrowRight") {
+    rightFunction();
+  } else if (event.key === "ArrowLeft") {
+    leftFunction();
+  } else if (event.key === "ArrowDown") {
+    bottomFunction();
+  } else if (event.key === "ArrowUp") {
+    topFunction();
+  }
+});
+</script>
+</body>
+</html>
