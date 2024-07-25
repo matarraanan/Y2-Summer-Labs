@@ -1,8 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import pyrebase
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder = "templates")
+
 app.config['SECRET_KEY'] = 'super-secret-key'
+
 
 firebaseConfig = {
     "apiKey": "AIzaSyD7_wx_T9MgF-CMwb44tJpRflkIoIYvKJI",
